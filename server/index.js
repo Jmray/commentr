@@ -1,5 +1,6 @@
 const express = require('express');
 require('dotenv').config({path: `${__dirname}/.env`});
+require('./auth/passport.auth');
 
 //requiring middleware
 
@@ -19,6 +20,7 @@ const {
 
 
 const app = express();
+
 
 //middleware
 decorate(app);

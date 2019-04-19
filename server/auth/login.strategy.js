@@ -14,7 +14,7 @@ const loginStrategy = new LocalStrategy(
 
             bcrypt.compare(password, user.password, (err, isSame) => {
                 if (err) {
-                    return done('System failur');
+                    return done('System failure');
 
                 }
                 if(!isSame){
