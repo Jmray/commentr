@@ -4,11 +4,10 @@ const passport = require('passport');
 const ApiRouter = express.Router();
 
 
-ApiRouter.post('/comment', (req, res) => {
+ApiRouter.post('/newcomment', (req, res) => {
     const {
         comment,
         priority,
-        timeStamp,
         replyId,
         userId,
         repoId,
@@ -17,7 +16,6 @@ ApiRouter.post('/comment', (req, res) => {
     req.db.new_comment([
         comment,
         priority,
-        timeStamp,
         replyId,
         userId,
         repoId,
@@ -28,22 +26,29 @@ ApiRouter.post('/comment', (req, res) => {
 
 
 
-ApiRouter.post('/createrepo', (req, res) => {
+ApiRouter.post('/newrepo', (req, res) => {
 
     const {
-        owner_id,
+        ownerId,
         description,
-        description_image,
+        descriptionImage,
     } = req.body;
 
-    req.db.create_comment_repo([owner_id, description, description_image,]);
+    req.db.new_comment_repo([ownerId, description, descriptionImage,]);
 
     res.status(201).send('created');
 });
 
-// ApiRouter.post('/vote', (req, res) => {
+ApiRouter.post('/newvote', (req, res) => {
+    const {
+        userId,
+        commentId,
+        vote,
+    } = req.body;
+    req.db.new_vote([userId, commentId, vote]);
 
-// });
+    res.send('voted');
+});
 
 
 
@@ -60,6 +65,11 @@ ApiRouter.post('/createrepo', (req, res) => {
 // ApiRouter.patch('/editcomment', (req, res) => {
 
 // });
+
+ApiRouter.delete('/deletecomment/:id', (req, res) => {
+    req.db.delete_comment([req.params.id]);
+    res.send('deleted')
+});
 
 module.exports ={
     ApiRouter,
