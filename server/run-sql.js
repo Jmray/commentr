@@ -7,7 +7,7 @@ let db;
 massive(process.env.DB_CONNECTION_STRING, { scripts: __dirname + '/db/scripts' })
     .then(dbInstance => {
         db = dbInstance;
-        return db.setup.create_Votes_table();
+        return db.new_user(['brenna', 'ray', 'brennaray', 'email2', 'password123']);
     })
     .then(() => {
         console.log('setup ran successfully');

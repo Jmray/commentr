@@ -53,13 +53,18 @@ ApiRouter.post('/newvote', (req, res) => {
 
 
 
-// ApiRouter.get('/comments', (req, res) => {
-//     res.send(req.db)
-// });
+ApiRouter.get('/comments/:id', (req, res) => {
+    req.db.get_repo_comments([req.params.id]).then( comments => {
+        res.status(200).send(comments);
+    }).catch( err => {
+        console.error(err);
+        res.sendStatus(500);
+    });
+});
 
-// ApiRouter.get('/repo', (req, res) => {
+ApiRouter.get('/repos/:id', (req, res) => {
 
-// });
+});
 
 
 // ApiRouter.patch('/editcomment', (req, res) => {
