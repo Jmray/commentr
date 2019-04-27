@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { RepoNav } from '../RepoNav/RepoNav';
-import { ThreadNav } from '../ThreadNav/ThreadNav';
-import { CommentView } from '../CommentView/CommentView';
-import { Nav } from '../Nav/Nav'
+import { RepoNav } from '../../index';
+import { ThreadNav } from '../../index';
+import { CommentView } from '../../index';
+import { Nav } from '../../index';
 
 export class Dashboard extends Component{
 
@@ -12,14 +12,14 @@ export class Dashboard extends Component{
 
         this.state = {
             current_repo: null,
-            all_repos: [],
+            repos: [],
     }
 }
 componentWillMount(){
 
-    axios.get('/api/repos/2').then(repos => {
+    axios.get('/api/repos').then(repos => {
         this.setState({
-            all_repos: repos,
+            repos,
         });
     });
 }

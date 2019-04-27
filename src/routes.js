@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Dashboard } from './components/Dashboard/Dashboard';
-import { AuthLogin } from './components/AuthLogin/AuthLogin';
-import { AuthRegister } from './components/AuthRegister/AuthRegister';
+import { Dashboard } from './components/index';
+import { AuthLogin } from './components/index';
+import { AuthRegister } from './components/index';
 
 
 export default(

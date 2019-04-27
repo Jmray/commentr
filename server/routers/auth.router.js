@@ -4,11 +4,19 @@ const passport = require('passport');
 const AuthRouter = express.Router();
 
 AuthRouter.post('/register', passport.authenticate('register'), (req, res) => {
-    res.send({ message: 'Successfully registered', user: req.user });
+    res.send({ 
+        success: true,
+        message: 'Successfully registered in',
+        redirectUrl: '/dashboard', 
+    });
 });
 
 AuthRouter.post('/login', passport.authenticate('login'), (req, res) => {
-    res.send({ message: 'Successfully logged in', user: req.user });
+    res.send({ 
+        success: true,
+        message: 'Successfully logged in',
+        redirectUrl: '/dashboard', 
+    });
 });
 
 AuthRouter.get('/logout', (req, res) => {

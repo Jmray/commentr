@@ -7,8 +7,6 @@ const registerStrategy = new LocalStrategy(
         const db = req.db;
         const {
             email,
-            firstName,
-            lastName,
            } = req.body;
 
         db.query(`
@@ -26,10 +24,10 @@ const registerStrategy = new LocalStrategy(
                     return done('System failure');
                 }
                 req.db.Users.insert({
-                    ...req.body,
+                    email,
+                    username,
                     password: hashedPassword,
-                    first_name: firstName,
-                    last_name: lastName,
+
                     
 
                 })
