@@ -1,5 +1,7 @@
 const express = require('express');
 const passport = require('passport');
+const { ensureLoggedIn } = require('../middleware/ensureLoggedIn.middleware');
+const app = require('express')();
 
 const ApiRouter = express.Router();
 
@@ -61,9 +63,22 @@ ApiRouter.get('/comments/:id', (req, res) => {
         res.sendStatus(500);
     });
 });
-
-ApiRouter.get('/repos/:id', (req, res) => {
-
+ApiRouter.get('/repos', (req, res) => {
+    req.db.get_repo_by_user([req.user.id ? req.user.id: null]).then(repos => {
+        res.status(200).send(repos)
+    }).catch( err => {
+        console.error(err);
+        res.sendStatus(500);
+    });
+});
+ApiRouter.get('/repo/:id', (req, res) => {
+    req.db.get_repo_by_id([req.params.id]).then(repo => {
+        res.status(200).send(repo)
+            .catch( err => {
+                console.warn(err);
+                res.status(500).send('issue getting repo');
+            });
+    });
 });
 
 

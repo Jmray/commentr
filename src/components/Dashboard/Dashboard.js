@@ -3,6 +3,7 @@ import axios from 'axios';
 import { RepoNav } from '../RepoNav/RepoNav';
 import { ThreadNav } from '../ThreadNav/ThreadNav';
 import { CommentView } from '../CommentView/CommentView';
+import { Nav } from '../Nav/Nav'
 
 export class Dashboard extends Component{
 
@@ -15,6 +16,7 @@ export class Dashboard extends Component{
     }
 }
 componentWillMount(){
+
     axios.get('/api/repos/2').then(repos => {
         this.setState({
             all_repos: repos,
@@ -30,6 +32,7 @@ componentWillMount(){
                 <RepoNav/>
                 <ThreadNav/> 
                 <CommentView/>
+                <Nav/>
             </div>
         )
     }
