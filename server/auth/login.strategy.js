@@ -27,7 +27,7 @@ const loginStrategy = new LocalStrategy(
             });
         }).catch(err => {
             console.warn(err);
-            done('System failure')
+            done('System Failure!')
         });
     });
 

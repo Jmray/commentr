@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-export function ThreadNav(){
+export function RepoView(){
     return(
         <div>
-            ThreadNav
+            Repoview
         </div>
     )
 }

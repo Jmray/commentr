@@ -1,12 +1,12 @@
-import { AuthLogin } from './MyComponentFolder/AuthLogin/AuthLogin';
-import { AuthRegister } from './MyComponentFolder/AuthRegister/AuthRegister';
+import AuthLogin from './MyComponentFolder/AuthLogin/AuthLogin';
+import AuthRegister from './MyComponentFolder/AuthRegister/AuthRegister';
 import { CommentCard } from './MyComponentFolder/CommentCard/CommentCard';
 import { CommentView } from './MyComponentFolder/CommentView/CommentView';
-import { Dashboard } from './MyComponentFolder/Dashboard/Dashboard';
+import { MainContainer } from './MyComponentFolder/MainContainer/MainContainer';
 import { Nav } from './MyComponentFolder/Nav/Nav';
-import { Profile } from './MyComponentFolder/Profile/Profile';
-import { RepoNav } from './MyComponentFolder/RepoNav/RepoNav';
-import { ThreadNav } from './MyComponentFolder/ThreadNav/ThreadNav';
+import { ProfileView } from './MyComponentFolder/ProfileView/ProfileVi';
+import { RepoView } from './MyComponentFolder/RepoView/RepoView';
+
 
 
 
@@ -15,9 +15,9 @@ export {
     AuthRegister,
     CommentCard,
     CommentView,
-    Dashboard,
+    MainContainer,
     Nav,
-    Profile,
-    RepoNav,
-    ThreadNav,
+    ProfileView,
+    RepoView,
+    
 }

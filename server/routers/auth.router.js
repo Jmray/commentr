@@ -8,20 +8,22 @@ AuthRouter.post('/register', passport.authenticate('register'), (req, res) => {
         success: true,
         message: 'Successfully registered in',
         redirectUrl: '/dashboard', 
+        user: req.user,
     });
 });
 
-AuthRouter.post('/login', passport.authenticate('login'), (req, res) => {
+AuthRouter.post('/login', passport.authenticate('login') , (req, res) => {
     res.send({ 
         success: true,
         message: 'Successfully logged in',
-        redirectUrl: '/dashboard', 
+        redirectUrl: '/dashboard',
+        user: req.user, 
     });
 });
 
 AuthRouter.get('/logout', (req, res) => {
     req.logout();
-    res.sendStatus(200);
+    res.send("logged out");
 });
 
 module.exports = {
