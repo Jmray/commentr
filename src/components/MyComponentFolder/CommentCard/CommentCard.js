@@ -41,7 +41,6 @@ export function CommentCard(props){
             </div>
             <div className='comment-right-bottom'>
                 <div className='comment-votes'>
-                {console.log(id)}
                     <button onClick={() => props.vote(1, id, 6)}>
                         &#9650;
                     </button>

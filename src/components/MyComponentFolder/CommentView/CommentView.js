@@ -16,6 +16,9 @@ export class CommentView extends Component{
         
     }
     componentDidMount(){
+        this.getComments()
+    }
+    getComments(){
         axios.get('/api/comments/' + this.props.match.params.id).then( comments => {
             this.setState({
                 comments: comments.data,
@@ -44,11 +47,15 @@ export class CommentView extends Component{
     }
     vote(vote, commentId, userId){
         axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
-            console.log(res);
+            this.getComments();
         }
             
         )
     }
+    postComment(comment, replyId, userId, repoId ){
+        axios.post('/api/newcomment', {comment, replyId, userId, repoId}).then()
+
+    };
 
     render(){
         const comments = this.state.comments.map(comment => {
@@ -66,9 +73,10 @@ export class CommentView extends Component{
         return(
             <div>
                 <div className='comment-post'>
-                    <form>
+                    
+                    {/* <form onSubmit={}>
                         <input type='text'/>
-                    </form>
+                    </form> */}
                 </div>
                 {comments}
             </div>

@@ -9,7 +9,6 @@ const ApiRouter = express.Router();
 ApiRouter.post('/newcomment', (req, res) => {
     const {
         comment,
-        priority,
         replyId,
         userId,
         repoId,
@@ -17,7 +16,6 @@ ApiRouter.post('/newcomment', (req, res) => {
 
     req.db.new_comment([
         comment,
-        priority,
         replyId,
         userId,
         repoId,
