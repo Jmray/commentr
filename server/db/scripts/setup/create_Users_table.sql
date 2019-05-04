@@ -4,5 +4,6 @@ CREATE TABLE "Users" (
     last_name TEXT,
     username VARCHAR(30),
     email TEXT,
-    password TEXT
+    password TEXT,
+    image_url text
 );

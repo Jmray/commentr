@@ -1,0 +1,58 @@
+
+.commentCard{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5vh;
+}
+.commentCard > div > *{
+    margin-bottom: 1vh;
+}
+.comment-left{
+    width: 7%;
+    
+}
+.comment-right{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+
+
+}
+.comment-right-bottom{
+    display: flex;
+    justify-content: space-between;
+}
+.comment-profile-pic > img {
+    width: 6vw;
+    height: 6vw;
+    max-width: 42px;
+    max-height: 42px;
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 50%;
+}
+.comment-author-time{
+    display: flex;
+    justify-content: space-between;
+    
+
+    font-weight: 500;
+}
+.comment-content, .comment-content > h3{
+
+    font-size: 1.1em;
+
+    text-align: start;
+}
+.comment-votes{
+    height: 10%;
+    min-height: 20px;
+    max-height: 20px;
+    display: flex;
+    text-align: start;
+}
+.comment-replies{
+    display: flex;
+    justify-content: start;
+    
+}

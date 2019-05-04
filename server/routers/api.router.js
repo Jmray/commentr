@@ -57,12 +57,22 @@ ApiRouter.post('/newvote', (req, res) => {
 
 ApiRouter.get('/comments/:id', (req, res) => {
     req.db.get_repo_comments([req.params.id]).then( comments => {
+        console.log(comments);
         res.status(200).send(comments);
     }).catch( err => {
         console.error(err);
         res.sendStatus(500);
     });
 });
+ApiRouter.get('/comments/replies/:repoId/:commentId', (req, res) => {
+    req.db.get_replies([req.params.repoId, req.params.commentId]).then( comments => {
+        res.status(200).send(comments);
+    }).catch( err => {
+        console.error(err);
+        res.sendStatus(500);
+    });
+});
+
 ApiRouter.get('/repos', (req, res) => {
     req.db.get_repo_by_user([req.user.id ? req.user.id: null]).then(repos => {
         console.log(req.user)

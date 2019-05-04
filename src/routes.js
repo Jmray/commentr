@@ -8,6 +8,11 @@ export default(
     <Switch>
         <Route path="/auth/login" component={AuthLogin}/>
         <Route path="/auth/register" component={AuthRegister}/>
+        {/* <Route path="/comments/:id/replies/:id" render={
+            (props) => (
+                <CommentView
+            )
+        } */}
         <Route path="/comments/:id" render={(props) => (
             <CommentView key={props.match.params.id} {...props}/>
         )}/>
