@@ -53,9 +53,8 @@ ApiRouter.post('/newvote', (req, res) => {
 
 
 
-ApiRouter.get('/comments/:id', (req, res) => {
-    req.db.get_repo_comments([req.params.id]).then( comments => {
-        console.log(comments);
+ApiRouter.post('/comments/:repoId', (req, res) => {
+    req.db.get_repo_comments([req.params.repoId, req.body.replyId || -1]).then( comments => {
         res.status(200).send(comments);
     }).catch( err => {
         console.error(err);
@@ -63,6 +62,7 @@ ApiRouter.get('/comments/:id', (req, res) => {
     });
 });
 ApiRouter.get('/comments/replies/:repoId/:commentId', (req, res) => {
+    
     req.db.get_replies([req.params.repoId, req.params.commentId]).then( comments => {
         res.status(200).send(comments);
     }).catch( err => {

@@ -5,37 +5,35 @@ import { CommentCard } from '../../index';
 
 export class CommentView extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
             comments: [],
-            currentRepo: null,
+            currentRepo: props.match.params.id,
+            isReplyView: false,
             
         }
         
     }
     componentDidMount(){
-        this.getComments()
+        this.getComments(0)
     }
-    getComments(){
-        axios.get('/api/comments/' + this.props.match.params.id).then( comments => {
+    getComments(replyId = 0){
+        const repoId = this.state.currentRepo;
+        axios.post('/api/comments/' + repoId, { replyId }).then( comments => {
+            
+            const isReplyView = replyId !== 0;
             this.setState({
                 comments: comments.data,
-                currentRepo: this.props.match.params.id,
+                isReplyView,
+                
             })
+            console.log(this.state.isReplyView);
         })
     }
 
-    checkReplies(replyId){
-        console.log(replyId)
-        axios.get(`/api/comments/replies/${this.state.currentRepo}/${replyId}`).then(comments => {
-            
-            this.setState({
-                comments: comments.data,
-            })
-        })
-    }
+    
 
     hasReplies(commentId){
          return(this.state.comments.filter( comment => {
@@ -58,6 +56,10 @@ export class CommentView extends Component{
     };
 
     render(){
+        const backButton = this.state.isReplyView ? 
+        <button onClick={() => this.getComments()}> back </button> : null;
+
+
         const comments = this.state.comments.map(comment => {
             
             return (
@@ -65,13 +67,15 @@ export class CommentView extends Component{
                     <CommentCard 
                         comment={comment} 
                         hasReplies={this.hasReplies(comment.id)} 
-                        checkReplies={(replyId) => this.checkReplies(replyId)}
+                        getReplies={(replyId) => this.getComments(replyId)}
                         vote={(vote, commentId, userId) => {this.vote(vote, commentId, userId)}}/>
                 </div>
             )
         })
         return(
             <div>
+
+                {backButton}
                 <div className='comment-post'>
                     
                     {/* <form onSubmit={}>

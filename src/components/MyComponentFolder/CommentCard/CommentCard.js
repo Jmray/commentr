@@ -13,7 +13,7 @@ export function CommentCard(props){
         } = props.comment;
 
     const replyButton = props.hasReplies ? 
-        <button onClick={() => props.checkReplies(id)}>
+        <button onClick={() => props.getReplies(id)}>
         replies
         </button> :
         null;
