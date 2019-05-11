@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { updateUsername, updateEmail, updateId } from '../../../actions/Actions'
+import { updateUser} from '../../../actions/Actions'
 
 
 class AuthRegister extends Component{
@@ -27,16 +27,26 @@ class AuthRegister extends Component{
         event.preventDefault();
 
         axios.post('/auth/register', this.state).then((res) => {
-            this.props.updateUsername(res.data.user.username);
-            this.props.updateEmail(res.data.user.email);
-            this.props.updateId(res.data.user.id);
-            this.props.history.push(res.data.redirectUrl);
+            const {
+                id, 
+                username,
+                email,
+                image_url,
+            } = res.data.user;
+            this.props.updateUser(
+                id,
+                username,
+                email,
+                image_url,
+            );
+            
+            //this.props.history.push(res.data.redirectUrl);
         }).catch( (err) => {
             if(err === "System Failure!"){
                 this.setState({serverErrorAuth: true})
                 
             }
-            let errorToAlert = this.state.serverErrorAuth === false ? "Username or password incorrect!" : err;
+            let errorToAlert = this.state.serverErrorAuth === false ? "username or email taken!" : err;
 
             alert(errorToAlert);
         });
@@ -46,6 +56,7 @@ class AuthRegister extends Component{
         console.log(this.props)
         return(
             <div>
+                
                 <form onSubmit={event => {this.register(event)}}>
 
 
@@ -90,4 +101,4 @@ const mapStateToProps = (reduxState) => {
 
 
 
-export default connect(mapStateToProps, {updateEmail, updateUsername, updateId} )(AuthRegister);
+export default connect(mapStateToProps, {updateUser} )(AuthRegister);

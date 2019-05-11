@@ -1,24 +1,17 @@
-import { USERNAME, EMAIL, ID } from './actionTypes';
+import { USER } from './actionTypes';
 
 
 
-export function updateUsername(username) {
+
+
+export function updateUser(id = 0, username = '', email = '', imageUrl= '') {
     return {
-            type: USERNAME,
-            payload: username,
-        } 
+        type: USER,
+        payload: {
+            id,
+            username,
+            email,
+            imageUrl
+        }
     }
-
-export function updateEmail(email) {
-    return {
-            type: EMAIL,
-            payload: email,
-        } 
-    }
-
-export function updateId(id) {
-    return {
-            type: ID,
-            payload: id,
-        } 
-    }
+}

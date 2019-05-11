@@ -1,7 +1,5 @@
 const express = require('express');
-const passport = require('passport');
 const { ensureLoggedIn } = require('../middleware/ensureLoggedIn.middleware');
-const app = require('express')();
 
 const ApiRouter = express.Router();
 
@@ -39,16 +37,21 @@ ApiRouter.post('/newrepo', (req, res) => {
     res.status(201).send('created');
 });
 
-ApiRouter.post('/newvote', (req, res) => {
+ApiRouter.post('/newvote',ensureLoggedIn(), (req, res) => {
     const {
         userId,
         commentId,
         vote,
     } = req.body;
-    req.db.new_vote([userId, commentId, vote]);
+    req.db.new_vote([userId, commentId, vote]).then(
+        res.send("voted")
+    ).catch(err => {
+        console.warn(err);
+        res.send('something went wrong')
 
-    res.send('voted');
-});
+    })
+
+})
 
 
 
@@ -64,18 +67,18 @@ ApiRouter.get('/comments/:repoId/:replyId', (req, res) => {
         });
 });
 ApiRouter.get('/replies/:repoId', (req, res) => {
-    
+    console.log(req.session)
+    console.log('hi')
     req.db.get_all_replies([req.params.repoId]).then( comments => {
         res.status(200).send(comments);
     }).catch( err => {
         console.error(err);
-        res.sendStatus(500);
+        res.status(500).send({message: 'error getting replies'});
     });
 });
 
-ApiRouter.get('/repos', (req, res) => {
-    req.db.get_repo_by_user([req.user.id ? req.user.id: null]).then(repos => {
-        console.log(req.user)
+ApiRouter.get('/repos', ensureLoggedIn(), (req, res) => {
+    req.db.get_repo_by_user([req.user.id]).then(repos => {
         res.status(200).send(repos)
     }).catch( err => {
         console.error(err);
@@ -84,7 +87,6 @@ ApiRouter.get('/repos', (req, res) => {
 });
 ApiRouter.get('/repo/:id', (req, res) => {
     req.db.get_repo_by_id([req.params.id]).then(repo => {
-        console.log(req.user)
         res.status(200).send(repo)
             .catch( err => {
                 console.warn(err);
@@ -103,9 +105,19 @@ ApiRouter.delete('/deletecomment/:id', (req, res) => {
     res.send('deleted')
 });
 
+
+// ApiRouter.use((err, req, res, next) => {
+//     let response = err;
+//     if(typeof err == "string"){
+//         response = {message: err};
+//     }
+//     res.status(500).send(response);
+// })
+
 module.exports ={
     ApiRouter,
 }
+
 
 
 

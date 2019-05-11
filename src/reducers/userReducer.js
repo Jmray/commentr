@@ -2,6 +2,7 @@ const initialState = {
     username: '',
     email: '',
     id: null,
+    imageUrl: '',
 };
 
 
@@ -9,17 +10,10 @@ const initialState = {
 export function userReducer(state = initialState, action) {
     const { type, payload } = action;
     const reducer = {
-        username: {
+       
+        user: {
             ...state,
-            username: payload, 
-        },
-        email: {
-            ...state,
-            email: payload,
-        },
-        id: {
-            ...state,
-            id: payload,
+            ...payload
         }
 
     };

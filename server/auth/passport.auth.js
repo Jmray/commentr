@@ -12,7 +12,10 @@ passport.use('register', registerStrategy);
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    const {
+        id,
+    } = user;
+    done(null, id );
 });
 
 passport.deserializeUser((id, done) => {

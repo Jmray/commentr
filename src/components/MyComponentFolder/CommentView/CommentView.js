@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { CommentCard } from '../../index';
 
 
-export class CommentView extends Component{
+
+class CommentView extends Component{
 
     constructor(props){
         super(props);
@@ -23,7 +25,6 @@ export class CommentView extends Component{
         
     }
     getComments(replyId = 0){
-        console.log(replyId)
         const repoId = this.state.currentRepo;
 
         if(replyId) {
@@ -69,10 +70,13 @@ export class CommentView extends Component{
     }
     vote(vote, commentId, userId, replyId){
         axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
+            
             this.getComments(replyId);
         }
             
-        )
+        ).catch(err => {
+            alert(err.response.data.message)
+        })
     }
     postComment(comment, replyId, userId, repoId ){
         axios.post('/api/newcomment', {comment, replyId, userId, repoId}).then()
@@ -92,7 +96,7 @@ export class CommentView extends Component{
                         comment={comment} 
                         hasReplies={this.hasReplies(comment.id)} 
                         getReplies={(replyId) => this.getComments(replyId)}
-                        vote={(vote, commentId, userId) => {this.vote(vote, commentId, userId)}}/>
+                        vote={(vote, commentId, userId, replyId) => {this.vote(vote, commentId, userId, replyId)}}/>
                 </div>
             )
         })
@@ -111,3 +115,18 @@ export class CommentView extends Component{
         )
     }
 }
+const mapStateToProps = (reduxState) => {
+    const {
+        username,
+        email,
+        id,
+    } = reduxState;
+    return{
+        username,
+        email,
+        id,
+    }
+}
+
+
+export default connect(mapStateToProps)(CommentView);

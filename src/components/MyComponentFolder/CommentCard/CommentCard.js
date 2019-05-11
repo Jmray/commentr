@@ -1,6 +1,5 @@
 import React from 'react';
 import './CommentCard.css';
-import { Link } from 'react-router-dom';
 
 
 export function CommentCard(props){
@@ -42,11 +41,11 @@ export function CommentCard(props){
             </div>
             <div className='comment-right-bottom'>
                 <div className='comment-votes'>
-                    <button onClick={() => props.vote(1, id, 6)}>
+                    <button onClick={() => props.vote(1, id, 6, reply_id)}>
                         &#9650;
                     </button>
                 
-                    <button onClick={() => props.vote(-1, id, 6)}>
+                    <button onClick={() => props.vote(-1, id, 6, reply_id)}>
                         &#9660;
                     </button>
                     {vote}

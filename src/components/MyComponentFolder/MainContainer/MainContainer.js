@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import { Route, Switch } from 'react-router-dom'
-import { Nav, CommentView, RepoView } from '../../index';
+import { Nav} from '../../index';
 import routes from '../../../routes';
 import './MainContainer.css';
 
@@ -20,6 +18,7 @@ export class MainContainer extends Component{
     render(){
         return(
             <div className='mainContainer'>
+                <Nav/>
                 {routes}
             </div>
         )

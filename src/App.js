@@ -1,23 +1,59 @@
 import React, { Component } from 'react';
 import './App.css';
-import routes from './routes';
-import { store } from './store';
+import axios from 'axios';
+
 import { HashRouter } from 'react-router-dom';
-import { Provider } from 'react-redux'
+
 import { MainContainer } from './components';
+import { connect } from 'react-redux';
+import { updateUser } from './actions/Actions'
 
 class App extends Component {
+
+
+  componentDidMount(){
+    axios.get('/auth/userassign').then(response => {
+        const {
+          email,
+          id,
+          username,
+          image_url,
+        } = response.data;
+        
+        this.props.updateUser(
+          id,
+          username,
+          email,
+          image_url,
+        )
+    })
+    
+  }
   render() {
     return (
-      <Provider store={store}>
+
         <HashRouter>
+          {console.log("app.js", this.props)}
           <div className="App">
               <MainContainer/>
           </div>
         </HashRouter>
-      </Provider>
     );
   }
 }
+const mapStateToProps = (reduxState) => {
+  const {
+    username,
+    email,
+    id,
+    imageUrl
+} = reduxState;
+return{
+    username,
+    email,
+    id,
+    imageUrl
+}
+}
 
-export default App;
+export default connect(mapStateToProps, {  updateUser })(App)
