@@ -17,11 +17,7 @@ FROM
 WHERE
     c.comment_repo_id = $1
 and 
-    cast(c.reply_id as text) like case 
-                    when $2 != -1 
-                        THEN cast($2 as text)
-                    ELSE '%'
-                    END                   
+    c.reply_id =$2                 
 
 GROUP BY 
     c.comment,

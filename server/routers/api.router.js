@@ -53,8 +53,8 @@ ApiRouter.post('/newvote', (req, res) => {
 
 
 
-ApiRouter.post('/comments/:repoId', (req, res) => {
-    req.db.get_repo_comments([req.params.repoId, req.body.replyId || -1]).then( comments => {
+ApiRouter.get('/comments/:repoId/:replyId', (req, res) => {
+    req.db.get_repo_comments([req.params.repoId, req.params.replyId || -1]).then( comments => {
         res.status(200).send(comments);
     }).catch( err => {
         console.error(err);

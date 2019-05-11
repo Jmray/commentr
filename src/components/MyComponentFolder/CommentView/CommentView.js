@@ -21,7 +21,7 @@ export class CommentView extends Component{
     }
     getComments(replyId = 0){
         const repoId = this.state.currentRepo;
-        axios.post('/api/comments/' + repoId, { replyId }).then( comments => {
+        axios.get(`/api/comments/${repoId}/${replyId}`).then( comments => {
             
             const isReplyView = replyId !== 0;
             this.setState({
@@ -43,9 +43,9 @@ export class CommentView extends Component{
         
 
     }
-    vote(vote, commentId, userId){
+    vote(vote, commentId, userId, replyId){
         axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
-            this.getComments();
+            this.getComments(replyId);
         }
             
         )
