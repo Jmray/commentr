@@ -9,7 +9,8 @@ export function CommentCard(props){
         username,
         image_url,
         id,
-        votes, 
+        votes,
+        reply_id, 
         } = props.comment;
 
     const replyButton = props.hasReplies ? 

@@ -13,8 +13,11 @@ export default(
                 <CommentView
             )
         } */}
+        <Route path="/comments/:repoId/:replyId" render={(props) => (
+            <CommentView key={props.match.params.repoId} replyId={props.match.params.replyId} {...props}/>
+        )}/>
         <Route path="/comments/:id" render={(props) => (
-            <CommentView key={props.match.params.id} {...props}/>
+            <CommentView key={props.match.params.repoId} {...props}/>
         )}/>
         <Route path="/repos" component={RepoView}/>
         <Route path="/profile" component={ProfileView}/>

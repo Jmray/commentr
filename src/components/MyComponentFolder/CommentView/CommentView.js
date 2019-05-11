@@ -10,6 +10,7 @@ export class CommentView extends Component{
 
         this.state = {
             comments: [],
+            replies: [],
             currentRepo: props.match.params.id,
             isReplyView: false,
             
@@ -17,26 +18,49 @@ export class CommentView extends Component{
         
     }
     componentDidMount(){
-        this.getComments(0)
+        this.getComments();
+        this.getAllReplies();
+        
     }
     getComments(replyId = 0){
+        console.log(replyId)
         const repoId = this.state.currentRepo;
-        axios.get(`/api/comments/${repoId}/${replyId}`).then( comments => {
-            
-            const isReplyView = replyId !== 0;
+
+        if(replyId) {
+            axios.get(`/api/comments/${repoId}/${replyId}`).then( comments => {
+
+                this.setState({
+                    isReplyView: true,
+                    comments: comments.data 
+                })
+            }
+            ).catch(err => {
+                console.log(err);
+            });
+        }else{
+            axios.get(`/api/comments/${repoId}/${replyId}`).then(comments => {
+                this.setState({
+                    isReplyView: false,
+                    comments: comments.data
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+        
+    }
+    getAllReplies(){
+        axios.get(`/api/replies/${this.state.currentRepo}`).then(replies => {
             this.setState({
-                comments: comments.data,
-                isReplyView,
-                
+                replies: replies.data
             })
-            console.log(this.state.isReplyView);
         })
     }
 
     
 
     hasReplies(commentId){
-         return(this.state.comments.filter( comment => {
+         return(this.state.replies.filter( comment => {
            return comment.reply_id === commentId;
         }).length !== 0
         )
