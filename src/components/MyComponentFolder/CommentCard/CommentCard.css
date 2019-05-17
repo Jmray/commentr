@@ -56,3 +56,8 @@
     justify-content: start;
     
 }
+img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+}

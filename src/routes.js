@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch, Route} from 'react-router-dom';
-import { AuthRegister, AuthLogin, CommentView, RepoView, ProfileView } from './components/index';
+import { AuthRegister, AuthLogin, CommentView, ProfileView } from './components/index';
+
 
 
 export default(
-
+    
     <Switch>
         <Route path="/auth/login" component={AuthLogin}/>
         <Route path="/auth/register" component={AuthRegister}/>
@@ -14,7 +15,6 @@ export default(
         <Route path="/comments/:id" render={(props) => (
             <CommentView key={props.match.params.repoId} {...props}/>
         )}/>
-        <Route path="/home" component={RepoView}/>
         <Route path="/profile" component={ProfileView}/>
         
     </Switch>

@@ -4,7 +4,8 @@ SELECT
     c.time_stamp, 
     c.id, 
     c.reply_id, 
-    c.user_id, 
+    c.user_id,
+    c.comment_repo_id, 
     u.username, 
     u.image_url,
     sum(v.vote) as votes
@@ -25,6 +26,7 @@ GROUP BY
     c.time_stamp, 
     c.id, 
     c.reply_id, 
-    c.user_id, 
+    c.user_id,
+    c.comment_repo_id,  
     u.username, 
     u.image_url;

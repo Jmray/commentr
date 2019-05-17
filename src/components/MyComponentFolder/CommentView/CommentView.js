@@ -92,6 +92,7 @@ class CommentView extends Component{
             
             return (
                 <div key={comment.id}>
+                {console.log(comment)}
                     <CommentCard 
                         comment={comment} 
                         hasReplies={this.hasReplies(comment.id)} 

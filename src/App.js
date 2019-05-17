@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/globalStyles.css';
 import axios from 'axios';
 
 import { HashRouter } from 'react-router-dom';
 
 import { MainContainer } from './components';
 import { connect } from 'react-redux';
-import { updateUser } from './actions/Actions'
+import { updateUser } from './actions/Actions';
+
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
           {console.log("app.js", this.props)}
           <div className="App">
               <MainContainer/>
+             
           </div>
         </HashRouter>
     );

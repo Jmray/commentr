@@ -28,6 +28,7 @@ class Nav extends Component{
                 {nav}
                 
             </div>
+    
         )
     }
 }

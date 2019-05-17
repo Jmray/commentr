@@ -41,11 +41,12 @@ class RepoView extends Component{
 
         return(
             <div>
+                {console.log('hi')}
                 {repos ? repos : null}
                 Repoview
             </div>
-        )
-    }
+        );
+    };
 }
 
 
