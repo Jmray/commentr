@@ -1,17 +1,14 @@
 const initialState = {
-    username: '',
-    email: '',
-    id: null,
-    image_url: '',
+    currentRepo: '',
 };
 
 
 
-function userReducer(state = initialState, action) {
+function repoReducer(state = initialState, action) {
     const { type, payload } = action;
     const reducer = {
        
-        user: {
+        repo: {
             ...state,
             ...payload
         }
@@ -21,4 +18,4 @@ function userReducer(state = initialState, action) {
     return reducer[type] || state;
 };
 
-export default userReducer;
+export default repoReducer;

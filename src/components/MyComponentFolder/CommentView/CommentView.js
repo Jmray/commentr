@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { CommentCard } from '../../index';
+import { CommentCard, CommentForm } from '../../index';
+import { updateRepo } from '../../../actions/Actions';
 
 
 
@@ -9,6 +10,7 @@ class CommentView extends Component{
 
     constructor(props){
         super(props);
+        props.updateRepo(props.match.params.id);
 
         this.state = {
             comments: [],
@@ -78,21 +80,19 @@ class CommentView extends Component{
             alert(err.response.data.message)
         })
     }
-    postComment(comment, replyId, userId, repoId ){
-        axios.post('/api/newcomment', {comment, replyId, userId, repoId}).then()
-
-    };
+   
 
     render(){
-        const backButton = this.state.isReplyView ? 
-        <button onClick={() => this.getComments()}> back </button> : null;
+        
+        const backButton = this.state.isReplyView ? <button onClick={() => this.getComments()}> back </button> : null;
+
+        const commentForm = !this.state.isReplyView ? <CommentForm/> : null;
 
 
         const comments = this.state.comments.map(comment => {
             
             return (
                 <div key={comment.id}>
-                {console.log(comment)}
                     <CommentCard 
                         comment={comment} 
                         hasReplies={this.hasReplies(comment.id)} 
@@ -103,14 +103,8 @@ class CommentView extends Component{
         })
         return(
             <div>
-
+                {commentForm}
                 {backButton}
-                <div className='comment-post'>
-                    
-                    {/* <form onSubmit={}>
-                        <input type='text'/>
-                    </form> */}
-                </div>
                 {comments}
             </div>
         )
@@ -121,13 +115,15 @@ const mapStateToProps = (reduxState) => {
         username,
         email,
         id,
+        image_url,
     } = reduxState;
     return{
         username,
         email,
         id,
+        image_url,
     }
 }
 
 
-export default connect(mapStateToProps)(CommentView);
+export default connect(mapStateToProps, { updateRepo })(CommentView);

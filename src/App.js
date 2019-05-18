@@ -48,13 +48,13 @@ const mapStateToProps = (reduxState) => {
     username,
     email,
     id,
-    imageUrl
+    image_url
 } = reduxState;
 return{
     username,
     email,
     id,
-    imageUrl
+    image_url
 }
 }
 

@@ -5,7 +5,7 @@ import routes from '../../../routes';
 import './MainContainer.css';
 import { RepoView } from '../../index';
 
-export class MainContainer extends Component{
+class MainContainer extends Component{
 
     constructor(){
         super();
@@ -29,4 +29,6 @@ export class MainContainer extends Component{
         )
     }
 }
+
+export default MainContainer;
 

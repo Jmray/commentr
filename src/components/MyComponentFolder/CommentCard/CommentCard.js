@@ -1,9 +1,10 @@
 import React from 'react';
+import { CommentForm } from '../../index';  
 import './CommentCard.css';
 import '../../../sass/globalStyles.scss'
 
 
-export function CommentCard(props){
+function CommentCard(props){
     const { 
         comment,
         username,
@@ -63,42 +64,53 @@ export function CommentCard(props){
         // </div>
        
         // </div>
-        <article className="media">
-            <figure className="media-left">
-                <p className="image is-64x64">
-                <img src={image_url}/>
-                </p>
-            </figure>
-            <div className="media-content">
-                <div className="content">
-                <p>
-                    <strong>{username}</strong> <small>31m</small>
-                    <br/>
-                        {comment}
-                </p>
+        <div>
+            <article className="media">
+                <figure className="media-left">
+                    <p className="image is-64x64">
+                    <img src={image_url}/>
+                    </p>
+                </figure>
+                <div className="media-content">
+                    <div className="content">
+                    <p>
+                        <strong>{username}</strong> 
+                        {/* <small>31m</small> */}
+                        <br/>
+                            {comment}
+                    </p>
+                    </div>
+                    <nav className="level is-mobile">
+                    <div className="level-left">
+                        <a className="level-item">
+                        <span className="icon is-small"><i className="fas fa-reply"></i></span>
+                        </a>
+                        <a className="level-item">
+                        <span className="icon is-small" onClick={() => props.vote(-1, id, comment_repo_id, reply_id)}><i className="fas fa-angle-down"></i></span>
+                        </a>
+                        <a className="level-item">
+                        <span className="icon is-small" onClick={() => props.vote(1, id, comment_repo_id, reply_id)} ><i className="fas fa-angle-up"></i></span>
+                        </a>
+                        <span>{vote}</span>
+                        
+                        <a>
+                        <span>{replyButton}</span>
+                        </a>
+                    </div>
+                    </nav>
                 </div>
-                <nav className="level is-mobile">
-                <div className="level-left">
-                    <a className="level-item">
-                    <span className="icon is-small"><i className="fas fa-reply"></i></span>
-                    </a>
-                    <a className="level-item">
-                    <span className="icon is-small" onClick={() => props.vote(-1, id, comment_repo_id, reply_id)}><i className="fas fa-angle-down"></i></span>
-                    </a>
-                    <a className="level-item">
-                    <span className="icon is-small" onClick={() => props.vote(1, id, comment_repo_id, reply_id)} ><i className="fas fa-angle-up"></i></span>
-                    </a>
-                    <span>{vote}</span>
-                    <a className="level-item" >
-                    <span>{replyButton}</span>
-                    </a>
+                <div className="media-right">
+                    <button className="delete"></button>
                 </div>
-                </nav>
+            </article>
+            <div>
+
             </div>
-            <div className="media-right">
-                <button className="delete"></button>
-            </div>
-        </article>
+
+
+        </div>
 
     )
 }
+
+export default CommentCard;

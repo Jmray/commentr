@@ -1,25 +1,28 @@
-import AuthLogin from './MyComponentFolder/AuthLogin/AuthLogin';
-import AuthRegister from './MyComponentFolder/AuthRegister/AuthRegister';
-import { CommentCard } from './MyComponentFolder/CommentCard/CommentCard';
-import CommentView from './MyComponentFolder/CommentView/CommentView';
-import { MainContainer } from './MyComponentFolder/MainContainer/MainContainer';
-import Nav from './MyComponentFolder/Nav/Nav';
-import { ProfileView } from './MyComponentFolder/ProfileView/ProfileVi';
-import RepoView from './MyComponentFolder/RepoView/RepoView';
-import RepoCard from './MyComponentFolder/RepoCard/RepoCard';
+export {default as AuthLogin} from './MyComponentFolder/AuthLogin/AuthLogin';
+export {default as AuthRegister} from './MyComponentFolder/AuthRegister/AuthRegister';
+export {default as CommentCard } from './MyComponentFolder/CommentCard/CommentCard';
+export {default as CommentView} from './MyComponentFolder/CommentView/CommentView';
+export {default as MainContainer } from './MyComponentFolder/MainContainer/MainContainer';
+export {default as Nav} from './MyComponentFolder/Nav/Nav';
+export {default as ProfileView } from './MyComponentFolder/ProfileView/ProfileVi';
+export {default as RepoView} from './MyComponentFolder/RepoView/RepoView';
+export {default as RepoCard} from './MyComponentFolder/RepoCard/RepoCard';
+export {default as CommentForm} from './MyComponentFolder/CommentForm/CommentForm';
 
 
 
 
-export {
-    AuthLogin,
-    AuthRegister,
-    CommentCard,
-    CommentView,
-    MainContainer,
-    Nav,
-    ProfileView,
-    RepoView,
-    RepoCard,
+// export {
+//     AuthLogin,
+//     AuthRegister,
+//     CommentCard,
+//     CommentView,
+//     MainContainer,
+//     Nav,
+//     ProfileView,
+//     RepoView,
+//     RepoCard,
+//     CommentForm,
+
     
-}
+// }

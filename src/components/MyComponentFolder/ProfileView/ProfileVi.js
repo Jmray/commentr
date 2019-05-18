@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class ProfileView extends Component{
+class ProfileView extends Component{
 
 
 
@@ -11,5 +11,6 @@ export class ProfileView extends Component{
     }
 }
 
+export default ProfileView;
 
 

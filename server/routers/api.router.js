@@ -67,8 +67,6 @@ ApiRouter.get('/comments/:repoId/:replyId', (req, res) => {
         });
 });
 ApiRouter.get('/replies/:repoId', (req, res) => {
-    console.log(req.session)
-    console.log('hi')
     req.db.get_all_replies([req.params.repoId]).then( comments => {
         res.status(200).send(comments);
     }).catch( err => {
