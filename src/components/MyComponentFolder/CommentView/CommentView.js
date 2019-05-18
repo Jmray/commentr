@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { CommentCard, CommentForm } from '../../index';
+import { CommentContainer, CommentForm } from '../../index';
 import { updateRepo } from '../../../actions/Actions';
+import { getComments } from '../../../_utils';
 
 
 
@@ -14,46 +15,32 @@ class CommentView extends Component{
 
         this.state = {
             comments: [],
-            replies: [],
-            currentRepo: props.match.params.id,
+            replies: [1],
             isReplyView: false,
             
         }
         
     }
     componentDidMount(){
-        this.getComments();
+        this.setComments();
         this.getAllReplies();
         
     }
-    getComments(replyId = 0){
-        const repoId = this.state.currentRepo;
-
-        if(replyId) {
-            axios.get(`/api/comments/${repoId}/${replyId}`).then( comments => {
-
-                this.setState({
-                    isReplyView: true,
-                    comments: comments.data 
-                })
-            }
-            ).catch(err => {
-                console.log(err);
-            });
-        }else{
-            axios.get(`/api/comments/${repoId}/${replyId}`).then(comments => {
-                this.setState({
-                    isReplyView: false,
-                    comments: comments.data
-                })
-            }).catch(err => {
-                console.log(err);
-            });
-        }
-        
+    setComments(){
+        console.log(this.props)
+        getComments(this.props.match.params.id).then(response => {
+            this.setState({
+                comments: response.data,
+            })
+        })
+    }
+    getReplies(replyId){
+       this.getComments(replyId).then(response => {
+            return response
+       })
     }
     getAllReplies(){
-        axios.get(`/api/replies/${this.state.currentRepo}`).then(replies => {
+        axios.get(`/api/replies/${this.props.match.params.id}`).then(replies => {
             this.setState({
                 replies: replies.data
             })
@@ -70,37 +57,27 @@ class CommentView extends Component{
         
 
     }
-    vote(vote, commentId, userId, replyId){
-        axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
-            
-            this.getComments(replyId);
-        }
-            
-        ).catch(err => {
-            alert(err.response.data.message)
-        })
-    }
+    
    
 
     render(){
+        console.log(this.state)
         
         const backButton = this.state.isReplyView ? <button onClick={() => this.getComments()}> back </button> : null;
 
         const commentForm = !this.state.isReplyView ? <CommentForm/> : null;
 
 
-        const comments = this.state.comments.map(comment => {
-            
+        const comments = this.state.replies[0] != 1 ? this.state.comments.map(comment => {
             return (
                 <div key={comment.id}>
-                    <CommentCard 
+                    <CommentContainer
                         comment={comment} 
                         hasReplies={this.hasReplies(comment.id)} 
-                        getReplies={(replyId) => this.getComments(replyId)}
                         vote={(vote, commentId, userId, replyId) => {this.vote(vote, commentId, userId, replyId)}}/>
                 </div>
             )
-        })
+        }) : <div>loading</div>
         return(
             <div>
                 {commentForm}
@@ -116,12 +93,14 @@ const mapStateToProps = (reduxState) => {
         email,
         id,
         image_url,
-    } = reduxState;
+    } = reduxState.userReducer;
+    const {currentRepo} = reduxState.repoReducer;
     return{
         username,
         email,
         id,
         image_url,
+        currentRepo,
     }
 }
 

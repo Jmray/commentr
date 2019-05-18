@@ -31,12 +31,13 @@ class App extends Component {
     
   }
   render() {
+    const mainContainer = this.props.username ? <MainContainer/> : <div>loading</div>
     return (
 
         <HashRouter>
           {console.log("app.js", this.props)}
           <div className="App">
-              <MainContainer/>
+              {mainContainer}
              
           </div>
         </HashRouter>
@@ -49,7 +50,7 @@ const mapStateToProps = (reduxState) => {
     email,
     id,
     image_url
-} = reduxState;
+} = reduxState.userReducer;
 return{
     username,
     email,

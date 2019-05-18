@@ -8,6 +8,7 @@ export {default as ProfileView } from './MyComponentFolder/ProfileView/ProfileVi
 export {default as RepoView} from './MyComponentFolder/RepoView/RepoView';
 export {default as RepoCard} from './MyComponentFolder/RepoCard/RepoCard';
 export {default as CommentForm} from './MyComponentFolder/CommentForm/CommentForm';
+export {default as CommentContainer} from './MyComponentFolder/CommentContainer/CommentContainer';
 
 
 
