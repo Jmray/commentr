@@ -16,21 +16,29 @@ function CommentCard(props){
         repoId,
         commentId,
         votes,
-        castVote
-            } = props
+        castVote,
+        replies,
+        replyForm,
+        toggleReplyForm,
+        replyId,
+        deleteComment,
+        userId
+            } = props;
+    const imageSize = replyId != 0 ? 'image is-48x48' : 'image is-64x64';
+    
         
         
             
-
-        const vote = votes > 0 ? '+' + votes : votes < 0 ? votes : null;
+        const vote =     votes > 0 ? '+' + votes : votes < 0 ? votes : null;
+        const replyCommentButton = replyId == 0 ? <span className="icon is-small" onClick={() => toggleReplyForm()}><i className="fas fa-reply"></i></span> : null;
 
             return(
                
                 
                     <article className="media">
                         <figure className="media-left">
-                            <p className="image is-64x64">
-                            <img src={userImage}/>
+                            <p className={imageSize}>
+                            <img className={imageSize +' is-rounded'} src={userImage}/>
                             </p>
                         </figure>
                         <div className="media-content">
@@ -45,21 +53,27 @@ function CommentCard(props){
                             <nav className="level is-mobile">
                             <div className="level-left">
                                 <a className="level-item">
-                                <span className="icon is-small"><i className="fas fa-reply"></i></span>
+                                    {replyCommentButton}
                                 </a>
                                 <a className="level-item">
-                                <span className="icon is-small" onClick={() => props.castVote(-1, commentId, repoId)}><i className="fas fa-angle-down"></i></span>
+                                <span className="icon is-small" onClick={() => castVote(-1, commentId, userId)}><i className="fas fa-angle-down"></i></span>
                                 </a>
                                 <a className="level-item">
-                                <span className="icon is-small" onClick={() => props.castVote(1, commentId, commentId)} ><i className="fas fa-angle-up"></i></span>
+                                <span className="icon is-small" onClick={() => castVote(1, commentId, userId)} ><i className="fas fa-angle-up"></i></span>
                                 </a>
                                 <span>{vote}</span>
                                 
                             </div>
                             </nav>
+                        <div>
+                            {replyForm}
+                        </div>
+                        <div>
+                            {replies}
+                        </div>
                         </div>
                         <div className="media-right">
-                            <button className="delete"></button>
+                            <button onClick={() => deleteComment(commentId)} className="delete"></button>
                         </div>
                     </article>
                     
@@ -77,9 +91,14 @@ const mapStateToProps = (reduxState) => {
     const {
         currentRepo
     } = reduxState.repoReducer;
+    const {
+        id
+
+    } = reduxState.userReducer;
     return{
     
         currentRepo,
+        userId: id
     }
 }
 

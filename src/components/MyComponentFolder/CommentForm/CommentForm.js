@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import '../../../sass/globalStyles.scss'
 
 
 class CommentForm extends Component{
@@ -29,7 +30,8 @@ class CommentForm extends Component{
         } = this.state;
         const {
             id,
-            currentRepo
+            currentRepo,
+            
         } = this.props;
     
         axios.post('api/newcomment', {
@@ -46,13 +48,14 @@ class CommentForm extends Component{
     };
 
     render(){
+        console.log(this.props.replyId)
 
         return(
-            <div>
+            <div className='box'>
                 <article className="media">
                     <figure className="media-left">
-                        <p className="image is-64x64">
-                        <img src={this.props.image_url}/>
+                        <p className="image is-64x64 is-rounded">
+                        <img className="image is-64x64 is-rounded" src={this.props.image_url}/>
                         </p>
                     </figure>
                     <div className="media-content">
@@ -66,13 +69,17 @@ class CommentForm extends Component{
                         </p>
                         </div>
                         <nav className="level">
-                        <div className="level-left">
+                        <div className="level-right is-pulled-right">
                             <div className="level-item">
                             <a className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>Submit</a>
                             </div>
                         </div>
-                        <div className="level-right">
+                        <div className="level-left">
+                            <div className="level-item">
+                            <a className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>cancel</a>
+                            </div>
                         </div>
+                        
                         </nav>
                     </div>
                 </article>

@@ -8,14 +8,19 @@ import { RepoCard } from '../../index'
 class RepoView extends Component{
 
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
+        if(props.id == -1){
+            props.history.push('/auth/login')
+        }
         this.state = {
             repos: [],
         }
+        
     }
 
     componentDidMount(){
+        
         axios.get('/api/repos').then(response => {
             const repos = response.data;
             
@@ -34,16 +39,22 @@ class RepoView extends Component{
     render(){
         const repos = this.state.repos ?  this.state.repos.map( repo => {
             return(
-            <div key={repo.id}>
+            <div className='column is-one-fifth' key={repo.id}>
                <RepoCard  repo={repo}/>
             </div>)
         }) : null;
 
         return(
             <div>
-                {console.log('hi')}
-                {repos ? repos : null}
-                Repoview
+
+                <div className=' content '>
+                    <h1>Repos</h1>
+                </div>
+                <hr className=' is-black'></hr>
+                <div className='columns '>
+                    {repos ? repos : null}
+                    
+                </div>
             </div>
         );
     };
@@ -54,7 +65,7 @@ class RepoView extends Component{
 const mapStateToProps = (reduxState) => {
     const {
         id,
-    } = reduxState;
+    } = reduxState.userReducer;
     return{
         id,
     }

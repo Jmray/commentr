@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getComments} from '../../../_utils/';
-import { CommentCard } from '../../index';
+import {getComments, conditionalRender} from '../../../_utils/';
+import { CommentCard, CommentForm } from '../../index';
 import '../../../sass/globalStyles.scss'
-
+  
 
 class CommentContainer extends Component{
 
     constructor(props){
         super(props);
         this.state ={
+            allReplies: [],
             replies: [],
             showReplies: false,
+            showReplyForm: false,
         }
-    }
-    componentDidMount(){
-        
     }
     getReplies(replyId){
         getComments(this.props.currentRepo, replyId).then(response => {
@@ -25,6 +24,9 @@ class CommentContainer extends Component{
                 showReplies: true,
             })
         })
+    }
+    deleteComment(commentId){
+        axios.delete('/api/deletecomment/' + commentId).then(res => console.log(res.data));
     }
     castVote(vote, commentId, userId){
         axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
@@ -35,17 +37,29 @@ class CommentContainer extends Component{
             alert(err.response.data.message)
         })
     }
+    toggleReplyForm(){
+        if(this.state.showReplyForm){
+            this.setState({
+                showReplyForm: false,
+            });
+        }else{
+        this.setState({
+            showReplyForm: true
+        })
+        }
+    }
     
     
         
         render(){
-            console.log(this.state)
+            console.log(this.props)
             const { 
                 comment,
                 username,
                 image_url,
                 id,
                 votes,
+                reply_id,
             } = this.props.comment;
 
             const replyButton = () =>{
@@ -61,12 +75,49 @@ class CommentContainer extends Component{
                     return null;
                 }
             }
+            const replyForm = () => {
+                if(this.state.showReplyForm){
+                    return <CommentForm replyId={id}/>
+                }else{
+                    return null;
+                }
+            }
+            const replies = () => {
+                if(this.state.showReplies){
+                    const result = this.state.replies.map(reply => {
+                        return(
+                            
+
+                                <CommentCard
+                                
+                                
+                                key={reply.id}
+                                userImage={reply.image_url}
+                                commentContent={reply.comment}
+                                username={username}
+                                repoId={this.props.currentRepo}
+                                commentId={reply.id}
+                                castVote={(vote, commentId, userId) => this.castVote(vote, commentId, userId)}
+                                votes={reply.votes}
+                                replyId={reply.reply_id}
+                                deleteComment={(commentId) => this.deleteComment(commentId)}
+                                />
+                            
+                        )
+
+                        
+                    });
+                    return result;
+                }else{
+                    return null;
+                }
+            }
             
            
 
 
             return(
-                <div>
+                <div className='box'>
 
                     <CommentCard
                     userImage={image_url}
@@ -76,12 +127,21 @@ class CommentContainer extends Component{
                     commentId={id}
                     castVote={(vote, commentId, userId) => this.castVote(vote, commentId, userId)}
                     votes={votes}
+                    replies={replies()}
+                    replyId={reply_id}
+                    replyForm={replyForm()}
+                    toggleReplyForm={() => {this.toggleReplyForm()}}
+                    deleteComment={(commentId) => this.deleteComment(commentId)}
     
                     />
                     
                     <a>
                     <span>{replyButton()}</span>
                     </a>
+                    {/* <div>
+                        {replies()}
+
+                    </div> */}
                 </div>
 
                 
