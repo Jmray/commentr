@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import {updateUser } from '../../../actions/Actions';
 //import Login from '../../../modals/Login/Login'
 
 
@@ -10,7 +12,6 @@ class Nav extends Component{
     
 
     render(){
-        console.log(this.props)
         const rightSideNav = this.props.id === -1 ? 
         <div className="buttons">
             <Link to='/auth/register' className="button is-primary">
@@ -23,12 +24,30 @@ class Nav extends Component{
       : <div className='columns'>
           <div className='image is-32x32 is-rounded'>
 
-            <img className='image is-32x32 is-rounded' src={this.props.image_url}/>
+            <img className='image is-32x32 is-rounded' style={{"minHeight": "32px"}} src={this.props.image_url} alt='profile'/>
           </div>
-          <p className='content'>{this.props.username}</p>
-        </div>
+          {/* <p className='content'>{this.props.username}</p> */}
+          <Link onClick={() => axios.get('/auth/logout').then(() => axios.get('/auth/userassign').then(response => {
+            const {
+              id,
+              username,
+              email,
+              image_url,
+            } = response.data;
+            this.props.updateUser(
+              id,
+              username,
+              email,
+              image_url,
+            )
+            }))}to='/auth/login' className="button is-text">
 
+                <strong>logout</strong>
+            </Link>
+        </div>
+        console.log(this.props);
         return(
+          
             // <div>
             //     {nav}
                 
@@ -49,19 +68,19 @@ class Nav extends Component{
 
   <div  className="navbar-menu">
     <div className="navbar-start">
-      <a className="navbar-item">
+      <Link to='/home' className="navbar-item">
         Home
-      </a>
+      </Link>
 
-      <a className="navbar-item">
+      <div className="navbar-item">
         Place Holder
-      </a>
-      <a className="navbar-item">
+      </div>
+      <div className="navbar-item">
         Place Holder
-      </a>
-      <a className="navbar-item">
+      </div>
+      <div className="navbar-item">
         Place Holder
-      </a>
+      </div>
 
       {/* <div className="navbar-item has-dropdown is-hoverable">
         <a className="navbar-link">
@@ -116,6 +135,6 @@ const mapStateToProps = (reduxState) => {
 
 
 
-export default connect(mapStateToProps )(Nav);
+export default connect(mapStateToProps, {updateUser} )(Nav);
 
 

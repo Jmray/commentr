@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './css/globalStyles.css';
 import axios from 'axios';
 
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter} from 'react-router-dom';
 
 import { MainContainer } from './components';
 import { connect } from 'react-redux';
@@ -15,9 +15,9 @@ class App extends Component {
   componentDidMount(){
     axios.get('/auth/userassign').then(response => {
         const {
-          email,
           id,
           username,
+          email,
           image_url,
         } = response.data;
         
@@ -31,11 +31,11 @@ class App extends Component {
     
   }
   render() {
+    console.log(this.props)
     const mainContainer = this.props.username ? <MainContainer/> : <div>loading</div>
     return (
 
         <HashRouter>
-          {console.log("app.js", this.props)}
 
           <div className="App ">
             {mainContainer}

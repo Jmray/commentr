@@ -5,7 +5,7 @@ import { USER, REPO } from './actionTypes';
 
 
 
-export function updateUser(id = 0, username = '', email = '', image_url= '') {
+export function updateUser(id = -1, username = 'Guest', email = '', image_url= '') {
     return {
         type: USER,
         payload: {

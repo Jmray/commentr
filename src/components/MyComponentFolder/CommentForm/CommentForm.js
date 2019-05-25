@@ -48,14 +48,13 @@ class CommentForm extends Component{
     };
 
     render(){
-        console.log(this.props.replyId)
 
         return(
             <div className='box'>
                 <article className="media">
                     <figure className="media-left">
                         <p className="image is-64x64 is-rounded">
-                        <img className="image is-64x64 is-rounded" src={this.props.image_url}/>
+                        <img className="image is-64x64 is-rounded" src={this.props.image_url} alt='profile'/>
                         </p>
                     </figure>
                     <div className="media-content">
@@ -71,12 +70,12 @@ class CommentForm extends Component{
                         <nav className="level">
                         <div className="level-right is-pulled-right">
                             <div className="level-item">
-                            <a className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>Submit</a>
+                            <div className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>Submit</div>
                             </div>
                         </div>
                         <div className="level-left">
                             <div className="level-item">
-                            <a className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>cancel</a>
+                            <div className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>cancel</div>
                             </div>
                         </div>
                         

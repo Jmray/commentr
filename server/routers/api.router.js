@@ -27,12 +27,13 @@ ApiRouter.post('/newcomment', (req, res) => {
 ApiRouter.post('/newrepo', (req, res) => {
 
     const {
+        title,
         ownerId,
         description,
         descriptionImage,
     } = req.body;
 
-    req.db.new_comment_repo([ownerId, description, descriptionImage,]);
+    req.db.new_comment_repo([title, ownerId, description, descriptionImage,]);
 
     res.status(201).send('created');
 });
@@ -86,10 +87,10 @@ ApiRouter.get('/repos', ensureLoggedIn(), (req, res) => {
 ApiRouter.get('/repo/:id', (req, res) => {
     req.db.get_repo_by_id([req.params.id]).then(repo => {
         res.status(200).send(repo)
-            .catch( err => {
-                console.warn(err);
-                res.status(500).send('issue getting repo');
-            });
+            
+    }).catch( err => {
+        console.warn(err);
+        res.status(500).send('issue getting repo');
     });
 });
 

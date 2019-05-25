@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getComments, conditionalRender} from '../../../_utils/';
+import {getComments} from '../../../_utils/';
 import { CommentCard, CommentForm } from '../../index';
 import '../../../sass/globalStyles.scss'
   
@@ -26,10 +26,11 @@ class CommentContainer extends Component{
         })
     }
     deleteComment(commentId){
-        axios.delete('/api/deletecomment/' + commentId).then(res => console.log(res.data));
+        axios.delete('/api/deletecomment/' + commentId);
     }
     castVote(vote, commentId, userId){
         axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
+            
             
         }
             
@@ -52,7 +53,6 @@ class CommentContainer extends Component{
     
         
         render(){
-            console.log(this.props)
             const { 
                 comment,
                 username,
@@ -117,7 +117,7 @@ class CommentContainer extends Component{
 
 
             return(
-                <div className='box'>
+                <div >
 
                     <CommentCard
                     userImage={image_url}
@@ -135,9 +135,9 @@ class CommentContainer extends Component{
     
                     />
                     
-                    <a>
+                    <div className='link' >
                     <span>{replyButton()}</span>
-                    </a>
+                    </div>
                     {/* <div>
                         {replies()}
 

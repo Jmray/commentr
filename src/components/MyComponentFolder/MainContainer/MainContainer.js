@@ -3,7 +3,7 @@ import {Switch, Route } from 'react-router-dom';
 import {connect } from 'react-redux';
 import { Nav} from '../../index';
 import routes from '../../../routes';
-import {updateRepo} from '../../../actions/Actions';
+//import {updateRepo} from '../../../actions/Actions';
 import './MainContainer.css';
 import { RepoView } from '../../index';
 import '../../../sass/globalStyles.scss'
@@ -22,9 +22,8 @@ class MainContainer extends Component{
 
     render(){
         return(
-            <div className='mainContainer'>
+            <div className='mainContainer box'>
                 <Nav/>
-                {console.log('main container', this.props)}
                 <Switch>
                     <Route path='/home' component={RepoView}/>
                 </Switch>

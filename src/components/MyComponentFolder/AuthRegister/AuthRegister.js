@@ -33,6 +33,9 @@ class AuthRegister extends Component{
                 email,
                 image_url,
             } = res.data.user;
+
+
+            
             this.props.updateUser(
                 id,
                 username,
@@ -41,6 +44,8 @@ class AuthRegister extends Component{
             );
             
             //this.props.history.push(res.data.redirectUrl);
+        }).then(() => {
+            this.props.history.push('/home')
         }).catch( (err) => {
             if(err === "System Failure!"){
                 this.setState({serverErrorAuth: true})

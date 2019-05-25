@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { CommentContainer, CommentForm } from '../../index';
+import { CommentContainer, CommentForm} from '../../index';
 import { updateRepo } from '../../../actions/Actions';
-import { getComments, conditionalRender } from '../../../_utils';
+import { getComments, conditionalRender, getRepo } from '../../../_utils';
 
 
 
@@ -14,6 +14,7 @@ class CommentView extends Component{
         props.updateRepo(props.match.params.id);
 
         this.state = {
+            repo: {},
             comments: [],
             replies: [1],
             
@@ -23,13 +24,20 @@ class CommentView extends Component{
     componentDidMount(){
         this.setComments();
         this.getAllReplies();
+        this.setRepo();
         
     }
     setComments(){
-        console.log(this.props)
         getComments(this.props.match.params.id).then(response => {
             this.setState({
                 comments: response.data,
+            })
+        })
+    }
+    setRepo(){
+        getRepo(this.props.match.params.id).then(response => {
+            this.setState({
+                repo: response.data[0],
             })
         })
     }
@@ -73,18 +81,54 @@ class CommentView extends Component{
 
         
         return(
-            <div className='box'>
+
+            
+            <div>
+                {conditionalRender(<div className=''>
+                <div className="" >
+                <div className="card-content">
+                    <div className="media">
+                        <div className="media-left">
+                            <figure className="image is-48x48 is-rounded">
+                            <img className='is-rounded' style={{"minHeight": "48px"}} src={this.props.image_url} alt="Placeholder"/>
+                            </figure>
+                        </div>
+                        <div className="media-content level">
+                            <p className="title is-4  level-item level-left">{this.state.repo.title}</p>
+                        <time >{this.state.repo.time_stamp}</time>
+                        </div>
+                    </div>
+
+                    <div className="content">
+                        {this.state.repo.description}
+                        <br/>
+                    </div>
+                <div className="card-image">
+                    <figure className="image is-4by3">
+                    <img src={this.state.repo.description_image} alt="Placeholder"/>
+                    </figure>
+                </div>
+                </div>
+            </div>
+                {console.log(this.state.repo.title !== undefined)}
+                </div>, 'loading', this.state.repo.title === undefined)}
+            
+                
+            <div>
                 <CommentForm/>
-                {conditionalRender(comments, 'loading', this.state.replies[0] != 1)}
+                {conditionalRender(comments, 'loading', this.state.replies[0] !== 1)}
+            </div>
             </div>
         )
     }
 }
 const mapStateToProps = (reduxState) => {
     const {
+        image_url
     } = reduxState.userReducer;
-    const {currentRepo} = reduxState.repoReducer;
+    const {} = reduxState.repoReducer;
     return{
+        image_url,
     }
 }
 
