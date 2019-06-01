@@ -33,7 +33,7 @@ function CommentCard(props){
             
     const options = isOwn ? <div className="media-right level">
                                 <i onClick={() => deleteComment(comment_id)} className='far fa-trash-alt level-item'></i>
-                                <EditCommentModal comment_id={comment_id} className='level-item'/>
+                                <EditCommentModal comment_id={comment_id} setup={() => props.setup()} className='level-item'/>
                             </div> : null;
     
         
@@ -65,7 +65,9 @@ function CommentCard(props){
                                     {replyCommentButton}
                                 </div>
                                 <div className="level-item">
-                                <span className="icon is-small" onClick={() => castVote(-1, comment_id, userId)}><i className="fas fa-angle-down"></i></span>
+                                <span className="icon is-small" onClick={() => {
+                                    castVote(-1, comment_id, userId);
+                                    }}><i className="fas fa-angle-down"></i></span>
                                 </div>
                                 <div className="level-item">
                                 <span className="icon is-small" onClick={() => castVote(1, comment_id, userId)} ><i className="fas fa-angle-up"></i></span>
@@ -99,8 +101,11 @@ const mapStateToProps = (reduxState) => {
         id
 
     } = reduxState.userReducer;
+    const {
+        currentRepo,
+    } = reduxState.repoReducer;
     return{
-    
+        currentRepo,
         userId: id
     }
 }

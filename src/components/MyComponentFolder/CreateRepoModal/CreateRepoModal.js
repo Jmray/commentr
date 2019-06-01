@@ -43,16 +43,16 @@ class CreateRepoModal extends Component {
         } = this.state;
         const ownerId = this.props.id;
 
-        const body = {
-             
-        }
         if(title&& description&& descriptionImage){
 
             axios.post('/api/newrepo', {title, ownerId, description, descriptionImage}).then(res => console.log(res.data));
+            this.props.getRepos();
             this.toggleModal();
         }else{
             this.setState({
-                title: 'required input'
+                title: 'required input',
+                description: 'required input',
+                descriptionImage: 'required input'
             })
         }
 

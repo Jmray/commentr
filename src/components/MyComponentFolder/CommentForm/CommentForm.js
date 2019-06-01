@@ -38,14 +38,24 @@ class CommentForm extends Component{
             comment,
             replyId,
             userId: id,
-            repoId: currentRepo,
-            }).then(res => alert(res.data));
+            repoId: currentRepo.id,
+            }).then(res => {
+                this.props.setup();
+                if(this.props.toggle){
+                    this.props.toggle();
+                }
+            });
 
             this.setState({
                 comment: '',
             })
 
     };
+    handleCancel(){
+        this.setState({
+            comment: '',
+        })
+    }
 
     render(){
 
@@ -70,12 +80,12 @@ class CommentForm extends Component{
                         <nav className="level">
                         <div className="level-right is-pulled-right">
                             <div className="level-item">
-                            <div className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>Submit</div>
+                            <div className="button " onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>Submit</div>
                             </div>
                         </div>
                         <div className="level-left">
                             <div className="level-item">
-                            <div className="button is-info" onClick={(event) => {this.handleContentSubmit(event, this.props.replyId)}}>cancel</div>
+                            <div className="button " type='button' onClick={(event) => {this.handleCancel()}}>cancel</div>
                             </div>
                         </div>
                         

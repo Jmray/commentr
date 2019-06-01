@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { updateComments, updateReplies, updateRepo} from '../../../actions/Actions';
 import {connect} from 'react-redux';
 import {getComments} from '../../../_utils/';
 import { CommentCard, CommentForm, EditCommentModal } from '../../index';
@@ -11,7 +12,6 @@ class CommentContainer extends Component{
     constructor(props){
         super(props);
         this.state ={
-            allReplies: [],
             replies: [],
             showReplies: false,
             showReplyForm: false,
@@ -23,7 +23,8 @@ class CommentContainer extends Component{
     
     
     getReplies(replyId){
-        getComments(this.props.currentRepo, replyId).then(response => {
+        console.log(this.props, replyId)
+        getComments(this.props.currentRepo.id, replyId).then(response => {
             this.setState({
                 replies: response.data,
                 showReplies: true,
@@ -32,9 +33,11 @@ class CommentContainer extends Component{
     }
     deleteComment(commentId){
         axios.delete('/api/deletecomment/' + commentId);
+        this.props.setup();
     }
     castVote(vote, commentId, userId){
         axios.post('/api/newvote', {vote, commentId, userId}).then( res => {
+            this.props.setup();
             
             
         }
@@ -59,7 +62,6 @@ class CommentContainer extends Component{
     
         
         render(){
-            console.log("commentContainer", this.props)
             const { 
                 username,
                 id: comment_id,
@@ -83,7 +85,7 @@ class CommentContainer extends Component{
             }
             const replyForm = () => {
                 if(this.state.showReplyForm){
-                    return <CommentForm replyId={comment_id}/>
+                    return <CommentForm setup={() => this.props.setup()} toggle={() => this.toggleReplyForm()} replyId={comment_id}/>
                 }else{
                     return null;
                 }
@@ -103,6 +105,7 @@ class CommentContainer extends Component{
                                 castVote={(vote, commentId, userId) => this.castVote(vote, commentId, userId)}
                                 deleteComment={(commentId) => this.deleteComment(commentId)}
                                 comment={reply}
+                                setComments={() => this.props.setComments()}
                                 />
                             
                         )
@@ -128,6 +131,7 @@ class CommentContainer extends Component{
                         replyForm={replyForm()}
                         toggleReplyForm={() => {this.toggleReplyForm()}}
                         deleteComment={(commentId) => this.deleteComment(commentId)}
+                        setup={() => this.props.setup()}
         
                         />
 
@@ -167,11 +171,15 @@ const mapStateToProps = (reduxState) => {
     } = reduxState.userReducer;
     const {
         currentRepo,
+        replies,
+        comments,
     } = reduxState.repoReducer;
     return{
     
         user_id,
         currentRepo,
+        replies,
+        comments,
     }
 }
 

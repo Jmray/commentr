@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { updateComment } from '../../../actions/Actions';
 import axios from 'axios';
 
 
@@ -41,8 +42,11 @@ class EditCommentModal extends Component {
         
         if(commentContent){
 
-            axios.patch('/api/editcomment/' + this.props.comment_id, {commentContent}).then(() => this.toggleModal());
-            this.toggleModal();
+            axios.patch('/api/editcomment/' + this.props.comment_id, {commentContent}).then(response => {
+                console.log(response);
+                this.props.setup();
+                this.toggleModal();
+            });
         }else{
             this.setState({
                 commentContent: 'required input'
@@ -113,4 +117,4 @@ const mapStateToProps = (reduxState) => {
 
 
 
-export default connect(mapStateToProps)(EditCommentModal);
+export default connect(mapStateToProps, { updateComment })(EditCommentModal);

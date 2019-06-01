@@ -24,3 +24,29 @@ export function updateRepo(currentRepo){
         }
     }
 }
+export function updateComments(comments){
+    return {
+        type: REPO,
+        payload: {
+            comments,
+
+        }
+    }
+}
+export function updateReplies(replies){
+    return {
+        type: REPO,
+        payload: {
+            replies,
+
+        }
+    }
+}
+export function updateComment(type, comment){
+    return{
+        type,
+        payload:{
+            comment
+        }
+    }
+}

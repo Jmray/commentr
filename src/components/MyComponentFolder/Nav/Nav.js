@@ -111,6 +111,7 @@ class Nav extends Component{
       </div>
     </div>
   </div>
+  <hr/>
 </nav>
             
     

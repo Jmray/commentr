@@ -108,8 +108,12 @@ ApiRouter.get('/repo/:id', (req, res) => {
 
 
 ApiRouter.patch('/editcomment/:id', (req, res) => {
+    console.log(req.db);
     req.db.update_comment_by_id(req.body.commentContent, req.params.id).then( response => {
-        res.status(401).send('edited');
+        res.status(201).send(response);
+    }).catch(err => {
+        console.warn(err);
+        res.status(500).send('there was an issue');
     })
 
 });

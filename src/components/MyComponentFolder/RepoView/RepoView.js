@@ -21,6 +21,9 @@ class RepoView extends Component{
 
     componentDidMount(){
         
+        this.getRepos();
+    }
+    getRepos(){
         axios.get('/api/repos').then(response => {
             const repos = response.data;
             
@@ -48,7 +51,7 @@ class RepoView extends Component{
 
         return(
             <div>
-                <CreateRepoModal/>
+                <CreateRepoModal getRepos={() => this.getRepos()}/>
 
                 <div className=' content '>
                     <h1>My Repos</h1>
