@@ -12,9 +12,9 @@ $beige-lighter: #EFF0EB;
 
 // Update Bulma's global variables
 $family-sans-serif: "Nunito", sans-serif;
-$grey-dark: $brown;
-$grey-light: $beige-light;
-$primary: $purple;
+$grey-dark: darkgrey;
+$grey-light: #F8F8F8;
+$primary: $pink;
 $link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
@@ -23,13 +23,43 @@ $fullhd-enabled: false;
 $body-background-color: white;
 $control-border-width: 2px;
 $input-border-color: transparent;
-$input-shadow: none;
+$input-shadow: $grey-light;
 
 i:hover {
     color: $pink;
 }
 .link:hover {
     color: $pink
+}
+.commentContainer:hover, .replies:hover{
+    background-color: $grey-light;
+}
+.commentContainer{
+    padding: 0px 15px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+}
+
+.repoImage{
+    max-width: 80%;
+    max-height: 80%;
+    margin: auto;
+}
+@media(max-width: 700){
+    .repoImage{
+        max-width: 100%;
+        max-height: 100%;
+        
+    }
+}
+.replies{
+    background-color: inherit;
+}
+.App{
+    min-height: 100vh;
+}
+.mainContainer{
+    min-height: 100vh;
 }
 
 

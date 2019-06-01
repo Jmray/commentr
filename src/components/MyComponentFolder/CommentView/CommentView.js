@@ -104,8 +104,8 @@ class CommentView extends Component{
                         <br/>
                     </div>
                 <div className="card-image">
-                    <figure className="image is-4by3">
-                    <img src={this.state.repo.description_image} alt="Placeholder"/>
+                    <figure className="image is-4by3 columns">
+                    <img className='repoImage column' src={this.state.repo.description_image} alt="Placeholder"/>
                     </figure>
                 </div>
                 </div>

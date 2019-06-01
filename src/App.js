@@ -37,7 +37,7 @@ class App extends Component {
 
         <HashRouter>
 
-          <div className="App ">
+          <div className="App has-background-grey-dark ">
             {mainContainer}
              
           </div>

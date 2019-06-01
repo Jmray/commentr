@@ -59,11 +59,11 @@ class Nav extends Component{
       </h1>
     
 
-    {/* <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
-    </a> */}
+    </a>
   </div>
 
   <div  className="navbar-menu">
@@ -72,7 +72,7 @@ class Nav extends Component{
         Home
       </Link>
 
-      <div className="navbar-item">
+      {/* <div className="navbar-item">
         Place Holder
       </div>
       <div className="navbar-item">
@@ -80,7 +80,7 @@ class Nav extends Component{
       </div>
       <div className="navbar-item">
         Place Holder
-      </div>
+      </div> */}
 
       {/* <div className="navbar-item has-dropdown is-hoverable">
         <a className="navbar-link">

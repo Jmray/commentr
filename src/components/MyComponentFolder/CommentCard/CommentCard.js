@@ -55,7 +55,6 @@ function CommentCard(props){
                             <div className="content">
                             <p>
                                 <strong>{comment_poster_username}</strong> 
-                                {/* <small>31m</small> */}
                                 <br/>
                                     {comment_content}
                             </p>

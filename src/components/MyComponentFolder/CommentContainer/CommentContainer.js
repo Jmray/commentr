@@ -16,6 +16,7 @@ class CommentContainer extends Component{
             showReplies: false,
             showReplyForm: false,
             isOwn: false,
+            isFocused: false,
         }
     }
     
@@ -70,10 +71,10 @@ class CommentContainer extends Component{
                 if(this.props.hasReplies){
                     const amountReplies = this.state.replies.length != 0 ? this.state.replies.length : null;
                     if(!this.state.showReplies){
-                        return (<div className='link is-small' onClick={() => this.getReplies(comment_id)}>{amountReplies} replies </div>)
+                        return (<div className='replies column' onClick={() => this.getReplies(comment_id)}><p className='link replies'>{amountReplies} replies </p></div>)
                     }
                     else{
-                        return(<div className='link' onClick={() => this.setState({showReplies: false})}>hide replies</div>)
+                        return(<div className='replies column' onClick={() => this.setState({showReplies: false})}><p className='link replies'>hide replies</p></div>)
                     }
                 }
                 else{
@@ -118,7 +119,7 @@ class CommentContainer extends Component{
 
 
             return(
-                <div >
+                <div className='commentContainer' >
                     <div className='left-side'>
                         <CommentCard
                         comment={this.props.comment}
@@ -137,12 +138,12 @@ class CommentContainer extends Component{
                         {replies()}
                         
                     </div> */}
-                    <div className='footer is-paddingless'>
+                    
 
-                        <div className='link' >
+                        <div className='replies columns' >
                         <span>{replyButton()}</span>
                         </div>
-                    </div>
+                    
                 </div>
 
                 

@@ -22,7 +22,7 @@ class MainContainer extends Component{
 
     render(){
         return(
-            <div className='mainContainer box'>
+            <div className='mainContainer box is-paddingless'>
                 <Nav/>
                 <Switch>
                     <Route path='/home' component={RepoView}/>
