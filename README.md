@@ -1,3 +1,25 @@
+
+Project requirement endpoint definition
+
+Defined API endpoints (Method, URL, short description)
+/auth/register uses passport to authenticate the user and add user to the req.
+/auth/login uses passport to authenticate the user and add user to the req.
+/auth/logout removes user from the req.
+/auth/userassign checks to see if user is authenticated then returns user.
+
+/api/newcomment creates new comment from info on the req.body
+/api/newrepo creates a new repo from info on the req.body
+/api/newvote creates a new vote from info on the req.body
+/api/comments/:repoId/:replyId retrieves commments from the database using the params on the req
+/api/replies/:repoId gets all replies from a certain repo using the params
+/api/repos gets all repos
+/api/repo/:id gets a specific repo using the id on the params
+/api/editcomment/:id edits a comment using the req.body and targeting with the params
+/api/deletecomment/:id deletes a comment based on the req.params
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
