@@ -32,7 +32,7 @@ class App extends Component {
   }
   render() {
     console.log(this.props)
-    const mainContainer = this.props.username ? <MainContainer/> : <div>loading</div>
+    const mainContainer = this.props.username ? <MainContainer/> : <div>loadingApp</div>
     return (
 
         <HashRouter>

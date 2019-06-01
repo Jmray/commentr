@@ -25,8 +25,16 @@ class AuthRegister extends Component{
 
     register(event){
         event.preventDefault();
+        const {
+            email,
+            username,
+            password,
+        } = this.state;
+        
 
-        axios.post('/auth/register', this.state).then((res) => {
+
+
+        axios.post('/auth/register', {email, username, password}).then((res) => {
             const {
                 id, 
                 username,

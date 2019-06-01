@@ -27,7 +27,7 @@ class Nav extends Component{
             <img className='image is-32x32 is-rounded' style={{"minHeight": "32px"}} src={this.props.image_url} alt='profile'/>
           </div>
           {/* <p className='content'>{this.props.username}</p> */}
-          <Link onClick={() => axios.get('/auth/logout').then(() => axios.get('/auth/userassign').then(response => {
+          <Link  onClick={() => axios.get('/auth/logout').then(() => axios.get('/auth/userassign').then(response => {
             const {
               id,
               username,
@@ -42,7 +42,7 @@ class Nav extends Component{
             )
             }))}to='/auth/login' className="button is-text">
 
-                <strong>logout</strong>
+                <strong className='link'>logout</strong>
             </Link>
         </div>
         console.log(this.props);

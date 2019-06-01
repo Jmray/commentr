@@ -10,6 +10,7 @@ export {default as RepoCard} from './MyComponentFolder/RepoCard/RepoCard';
 export {default as CommentForm} from './MyComponentFolder/CommentForm/CommentForm';
 export {default as CommentContainer} from './MyComponentFolder/CommentContainer/CommentContainer';
 export {default as CreateRepoModal} from './MyComponentFolder/CreateRepoModal/CreateRepoModal';
+export {default as EditCommentModal} from './MyComponentFolder/EditCommentModal/EditCommentModal';
 
 
 

@@ -67,7 +67,7 @@ class CommentView extends Component{
         
 
 
-
+        console.log(this.state);
         const comments = this.state.comments.map(comment => {
             return (
                 <div key={comment.id}>
@@ -84,7 +84,7 @@ class CommentView extends Component{
 
             
             <div>
-                {conditionalRender(<div className=''>
+                <div className=''>
                 <div className="" >
                 <div className="card-content">
                     <div className="media">
@@ -110,13 +110,12 @@ class CommentView extends Component{
                 </div>
                 </div>
             </div>
-                {console.log(this.state.repo.title !== undefined)}
-                </div>, 'loading', this.state.repo.title === undefined)}
+                </div>
             
                 
             <div>
                 <CommentForm/>
-                {conditionalRender(comments, 'loading', this.state.replies[0] !== 1)}
+                {conditionalRender(comments, 'loading replies', this.state.replies[0] !== 1)}
             </div>
             </div>
         )

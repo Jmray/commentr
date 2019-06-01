@@ -43,8 +43,19 @@ class CreateRepoModal extends Component {
         } = this.state;
         const ownerId = this.props.id;
 
-        axios.post('/api/newrepo', {title, ownerId, description, descriptionImage}).then(res => console.log(res.data));
-        this.toggleModal();
+        const body = {
+             
+        }
+        if(title&& description&& descriptionImage){
+
+            axios.post('/api/newrepo', {title, ownerId, description, descriptionImage}).then(res => console.log(res.data));
+            this.toggleModal();
+        }else{
+            this.setState({
+                title: 'required input'
+            })
+        }
+
 
     }
     handleInputChange(value, type){
@@ -68,14 +79,14 @@ class CreateRepoModal extends Component {
                 </button>
 
                 <div className={modalToggle}>
-                <div className="modal-background"></div>
+                <div onClick={() => this.toggleModal()} className="modal-background"></div>
                 <div className="modal-content">
                     <div className='box'>
                         <form className='field has-background-white'>
                             <div>
                                 <label>
                                     Title
-                                    <input className='input' type='text' onChange={event => this.handleInputChange(event.target.value, 'title')}/>
+                                    <input className='input' type='text' value={this.state.title} onChange={event => this.handleInputChange(event.target.value, 'title')}/>
                                 </label>
 
                             </div>
@@ -83,7 +94,7 @@ class CreateRepoModal extends Component {
                             <div>
                                 <label>
                                     Description
-                                    <input className='input' type='text' onChange={event => this.handleInputChange(event.target.value, 'description')}/>
+                                    <input className='input' type='text' value={this.state.description} onChange={event => this.handleInputChange(event.target.value, 'description')}/>
                                 </label>
                                 
                             </div>
@@ -91,11 +102,11 @@ class CreateRepoModal extends Component {
                             <div>
                                 <label>
                                     Image
-                                    <input className='input' type='text' onChange={event => this.handleInputChange(event.target.value, 'descriptionImage')}/>
+                                    <input className='input' type='text' value={this.state.descriptionImage} onChange={event => this.handleInputChange(event.target.value, 'descriptionImage')}/>
                                 </label>
                                 
                             </div>
-                            <button className=' button is-primary' onClick={(event) => {this.handleSubmit(event)}}>
+                            <button className=' button is-pink' onClick={(event) => {this.handleSubmit(event)}}>
                                 Submit
                             </button>
 

@@ -60,6 +60,18 @@ ApiRouter.post('/newvote',ensureLoggedIn(), (req, res) => {
 ApiRouter.get('/comments/:repoId/:replyId', (req, res) => {
     
         req.db.get_comments_by_id([req.params.repoId, req.params.replyId]).then( comments => {
+            comments.map(comment => {
+
+                comment.isOwn = false;
+                if(req.user){
+                    if(comment.user_id === req.user.id){
+                        comment.isOwn = true;
+                        }
+                }
+
+                
+            });
+            
             res.status(200).send(comments);
         })
         .catch( err => {
@@ -95,9 +107,12 @@ ApiRouter.get('/repo/:id', (req, res) => {
 });
 
 
-// ApiRouter.patch('/editcomment', (req, res) => {
+ApiRouter.patch('/editcomment/:id', (req, res) => {
+    req.db.update_comment_by_id(req.body.commentContent, req.params.id).then( response => {
+        res.status(401).send('edited');
+    })
 
-// });
+});
 
 ApiRouter.delete('/deletecomment/:id', (req, res) => {
     req.db.delete_comment([req.params.id]);

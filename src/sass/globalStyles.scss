@@ -25,5 +25,12 @@ $control-border-width: 2px;
 $input-border-color: transparent;
 $input-shadow: none;
 
+i:hover {
+    color: $pink;
+}
+.link:hover {
+    color: $pink
+}
+
 
 @import '../../node_modules/bulma/bulma';
